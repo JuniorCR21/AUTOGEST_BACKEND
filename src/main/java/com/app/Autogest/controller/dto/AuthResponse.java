@@ -10,12 +10,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  *
  * @author CLAUDIO CRUZADO
  */
-@JsonPropertyOrder({"username", "message", "jwt", "role", "status"})
+@JsonPropertyOrder({"username", "message", "jwt", "role", "status", "cliente", "cliente_razon", "empleado"})
 public record AuthResponse(
         String username,
         String message,
         String jwt,
         String role,
+        Long cliente,
+        Long empleado,
+        String cliente_razon,
         boolean status) {
 
 }

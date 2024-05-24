@@ -76,15 +76,23 @@ public class ClaseUsuariosDetailsServiceImpl implements UserDetailsService {
 
         String accessToken = jwtUtils.createToken(authentication);
 
-        // Assuming that you have a method to get the user role from the authentication or username
+        // Obtener el rol del usuario
         UserDetails userDetails = loadUserByUsername(username);
         String role = userDetails.getAuthorities().stream()
                 .filter(grantedAuthority -> grantedAuthority.getAuthority().startsWith("ROLE_"))
                 .map(grantedAuthority -> grantedAuthority.getAuthority().substring(5))
                 .findFirst()
-                .orElse("USER"); // Default role if none found
+                .orElse("USER"); // Rol predeterminado si no se encuentra ninguno
 
-        AuthResponse authResponse = new AuthResponse(username, "User Logged successfully", accessToken, role, true);
+        // Obtener cliente y empleado desde Clase_Usuarios
+        Clase_Usuarios usuario = claseUsuarioDao.findUsuarioByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("El usuario " + username + " no existe"));
+
+        Long cliente = usuario.getIdClienteFK() != null ? usuario.getIdClienteFK().getId_Cliente(): null;
+        Long empleado = usuario.getIdEmpleadoFK() != null ? usuario.getIdEmpleadoFK().getId_Empleado(): null;
+        String cliente_razon = usuario.getIdClienteFK() !=null ? usuario.getIdClienteFK().getRazon_Social() : null;
+
+         AuthResponse authResponse = new AuthResponse(username, "User Logged successfully", accessToken, role, cliente, empleado, cliente_razon, true);
         return authResponse;
     }
 
@@ -101,5 +109,4 @@ public class ClaseUsuariosDetailsServiceImpl implements UserDetailsService {
 
         return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
     }
-
 }
