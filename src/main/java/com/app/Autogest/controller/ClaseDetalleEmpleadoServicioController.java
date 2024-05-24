@@ -30,19 +30,22 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/Autogest")
+@PreAuthorize("denyAll()")
 public class ClaseDetalleEmpleadoServicioController {
 
     @Autowired
     private IClaseDetalleEmpleadoServicioService detalleempleadoservicioService;
 
     @GetMapping("/MostrarDetalleEmpeladoServicio")
-    private List<Clase_Detalle_Empleado_Servicio> index() {
+    @PreAuthorize("hasAnyAuthority('INTERMEDIO')")
+    public List<Clase_Detalle_Empleado_Servicio> index() {
         return detalleempleadoservicioService.findAll();
     }
 
 
     @PostMapping("/InsertarDetalleEmpleadoServicio")
-    private ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Detalle_Empleado_Servicio detalleempleadoservicio, BindingResult bindingResult) {
+    @PreAuthorize("hasAnyAuthority('INTERMEDIO')")
+    public ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Detalle_Empleado_Servicio detalleempleadoservicio, BindingResult bindingResult) {
         Map<String, String> response = new HashMap();
 
         try {
