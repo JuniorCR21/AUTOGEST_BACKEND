@@ -32,20 +32,21 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/Autogest")
-//@PreAuthorize("denyAll()")
+@PreAuthorize("denyAll()")
 public class ClaseClienteController {
 
     @Autowired
     private IClaseClienteService clienteService;
 
     @GetMapping("/MostrarCliente")
-//    @PreAuthorize("hasAnyAuthority('BASICO')")
+    @PreAuthorize("hasAnyAuthority('BASICO')")
     public List<Clase_Cliente> index() {
         return clienteService.findAll();
     }
 
     @PostMapping("/InsertarCliente")
-    private ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Cliente cliente, BindingResult bindingResult) {
+    @PreAuthorize("hasAnyAuthority('BASICO')")
+    public ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Cliente cliente, BindingResult bindingResult) {
         Map<String, String> response = new HashMap();
 
         try {
@@ -78,12 +79,14 @@ public class ClaseClienteController {
     }
     
     @GetMapping("/BuscarCliente/{id_Cliente}")
-    private Clase_Cliente buscar(@PathVariable Long id_Cliente) {
+    @PreAuthorize("hasAnyAuthority('BASICO')")
+    public Clase_Cliente buscar(@PathVariable Long id_Cliente) {
         return clienteService.findById(id_Cliente);
     }
 
     @PutMapping("/ActualizarCliente/{id_Cliente}")
-    private ResponseEntity<Map<String, String>> update(@PathVariable Long id_Cliente, @RequestBody Clase_Cliente cliente) {
+    @PreAuthorize("hasAnyAuthority('BASICO')")
+    public ResponseEntity<Map<String, String>> update(@PathVariable Long id_Cliente, @RequestBody Clase_Cliente cliente) {
         Map<String, String> response = new HashMap<>();
         try {
             cliente.setId_Cliente(id_Cliente);
@@ -97,6 +100,7 @@ public class ClaseClienteController {
     }
     
     @GetMapping("/buscarPorRuc/{ruc}")
+    @PreAuthorize("hasAnyAuthority('BASICO')")
     public ResponseEntity<?> buscarPorRuc(@PathVariable String ruc) {
         Clase_Cliente cliente = clienteService.findByRuc(ruc);
         if (cliente != null) {
