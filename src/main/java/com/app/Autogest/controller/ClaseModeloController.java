@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/Autogest")
-//@PreAuthorize("denyAll()")
+@PreAuthorize("denyAll()")
 public class ClaseModeloController {
 
     @Autowired
@@ -44,7 +44,7 @@ public class ClaseModeloController {
     private IClaseAutoService autoService;
 
     @GetMapping("/MostrarModelo")
-//    @PreAuthorize("hasAnyAuthority('BASICO', 'CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('BASICO', 'CLIENTE')")
     public ResponseEntity<?> index() {
         List<Clase_Modelo> modeloActivos = modeloService.findAllByEstado(1);
         if (!modeloActivos.isEmpty()) {
@@ -57,7 +57,7 @@ public class ClaseModeloController {
     }
 
     @PostMapping("/InsertarModelo")
-//    @PreAuthorize("hasAnyAuthority('MASTER')")
+    @PreAuthorize("hasAnyAuthority('MASTER')")
     public ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Modelo modelo, BindingResult bindingResult) {
         Map<String, String> response = new HashMap();
 
@@ -86,13 +86,13 @@ public class ClaseModeloController {
     }
 
     @GetMapping("/BuscarModelo/{id_Modelo}")
-//    @PreAuthorize("hasAnyAuthority('MASTER')")
+    @PreAuthorize("hasAnyAuthority('MASTER')")
     public Clase_Modelo buscar(@PathVariable Long id_Modelo) {
         return modeloService.findById(id_Modelo);
     }
 
     @PutMapping("/ActualizarModelo/{id_Modelo}")
-//    @PreAuthorize("hasAnyAuthority('MASTER')")
+    @PreAuthorize("hasAnyAuthority('MASTER')")
     public ResponseEntity<Map<String, String>> update(@PathVariable Long id_Modelo, @RequestBody Clase_Modelo modelo) {
         Map<String, String> response = new HashMap<>();
         try {
@@ -108,7 +108,7 @@ public class ClaseModeloController {
     }
 
     @GetMapping("/BuscarPorModelo/{modelo}")
-//    @PreAuthorize("hasAnyAuthority('MASTER', 'CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('MASTER', 'CLIENTE')")
     public ResponseEntity<?> buscarPorModelo(@PathVariable String modelo) {
         List<Clase_Modelo> modelosEncontradas = modeloService.findByModelo(modelo);
         Map<String, Object> response = new HashMap<>();
@@ -121,7 +121,7 @@ public class ClaseModeloController {
     }
     
     @PutMapping("/EliminarModelo/{id_Modelo}")
-//    @PreAuthorize("hasAnyAuthority('AVANZADO')")
+    @PreAuthorize("hasAnyAuthority('AVANZADO')")
     public ResponseEntity<Map<String, String>> eliminar(@PathVariable Long id_Modelo) {
         Map<String, String> response = new HashMap<>();
         try {

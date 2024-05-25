@@ -39,13 +39,13 @@ public class ClaseTipoDocumentoController {
     private IClaseTipoDocumentoService tipodocumentoService;
 
     @GetMapping("/MostrarTipoDocumento")
-    @PreAuthorize("hasAnyRole('DEVELOPER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MASTER')")
     public List<Clase_Tipo_Documento> index() {
         return tipodocumentoService.findAll();
     }
 
     @PostMapping("/InsertarTipoDocumento")
-    @PreAuthorize("hasAnyRole('DEVELOPER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MASTER')")
     public ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Tipo_Documento tipodoc, BindingResult bindingResult) {
         Map<String, String> response = new HashMap();
 
@@ -74,13 +74,13 @@ public class ClaseTipoDocumentoController {
     }
     
     @GetMapping("/BuscarTipoDocumento/{id_Tipo}")
-    @PreAuthorize("hasAnyRole('DEVELOPER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MASTER')")
     public Clase_Tipo_Documento buscar(@PathVariable Long id_Tipo) {
         return tipodocumentoService.findById(id_Tipo);
     }
     
     @PutMapping("/ActualizarTipoDocumento/{id_Tipo_Documento}")
-    @PreAuthorize("hasAnyRole('DEVELOPER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('MASTER')")
     public ResponseEntity<Map<String, String>> update(@PathVariable Long id_Tipo_Documento, @RequestBody Clase_Tipo_Documento tipodocumento) {
         Map<String, String> response = new HashMap<>();
         try {

@@ -80,21 +80,6 @@ public class ClaseUsuariosController {
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    
-    @GetMapping("/hello/{usuario}")
-    @PreAuthorize("hasAnyAuthority('INTERMEDIO' ,'BASICO','CLIENTE')")
-    public ResponseEntity<?> buscarUsuario(@PathVariable String usuario) {
-        List<Clase_Usuarios> marcasEncontradas = usuariosService.findByUsername(usuario);
-        Map<String, Object> response = new HashMap<>();
-        if (!marcasEncontradas.isEmpty()) {
-            return new ResponseEntity<>(marcasEncontradas, HttpStatus.OK);
-        } else {
-            response.put("message", "Usuario no encontrado");
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-        }
-    }
-    
     
     
 }

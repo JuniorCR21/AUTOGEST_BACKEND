@@ -88,11 +88,11 @@ public class ClaseUsuariosDetailsServiceImpl implements UserDetailsService {
         Clase_Usuarios usuario = claseUsuarioDao.findUsuarioByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("El usuario " + username + " no existe"));
 
-        Long cliente = usuario.getIdClienteFK() != null ? usuario.getIdClienteFK().getId_Cliente(): null;
-        Long empleado = usuario.getIdEmpleadoFK() != null ? usuario.getIdEmpleadoFK().getId_Empleado(): null;
-        String cliente_razon = usuario.getIdClienteFK() !=null ? usuario.getIdClienteFK().getRazon_Social() : null;
+        Long cliente = usuario.getIdClienteFK() != null ? usuario.getIdClienteFK().getId_Cliente() : null;
+        Long empleado = usuario.getIdEmpleadoFK() != null ? usuario.getIdEmpleadoFK().getId_Empleado() : null;
+        String cliente_razon = usuario.getIdClienteFK() != null ? usuario.getIdClienteFK().getRazon_Social() : null;
 
-         AuthResponse authResponse = new AuthResponse(username, "User Logged successfully", accessToken, role, cliente, empleado, cliente_razon, true);
+        AuthResponse authResponse = new AuthResponse(username, "User Logged successfully", accessToken, role, cliente, empleado, cliente_razon, true);
         return authResponse;
     }
 

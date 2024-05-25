@@ -46,5 +46,10 @@ public class ClaseCitasServicesImpl implements IClaseCitasService {
         return citasDao.findById(id).orElse(null);
     }
     
+    @Override
+    public List<Clase_Citas> findByClienteId(Long idCliente) {
+        return citasDao.findCitasByClienteId(idCliente);
+    }
+    
 
 }

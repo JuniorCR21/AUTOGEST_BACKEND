@@ -38,12 +38,14 @@ public class ClaseFamiliaController {
     private IClaseFamiliaService familiaService;
 
     @GetMapping("/MostrarFamilia")
-    private List<Clase_Familia> index() {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public List<Clase_Familia> index() {
         return familiaService.findAll();
     }
 
     @PostMapping("/InsertarFamilia")
-    private ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Familia familia, BindingResult bindingResult) {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Familia familia, BindingResult bindingResult) {
         Map<String, String> response = new HashMap();
 
         try {
@@ -71,12 +73,14 @@ public class ClaseFamiliaController {
     }
 
     @GetMapping("/BuscarFamilia/{id_Familia}")
-    private Clase_Familia buscar(@PathVariable Long id_Familia) {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public Clase_Familia buscar(@PathVariable Long id_Familia) {
         return familiaService.findById(id_Familia);
     }
 
     @PutMapping("/ActualizarFamilia/{id_Familia}")
-    private ResponseEntity<Map<String, String>> update(@PathVariable Long id_Familia, @RequestBody Clase_Familia familia) {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public ResponseEntity<Map<String, String>> update(@PathVariable Long id_Familia, @RequestBody Clase_Familia familia) {
         Map<String, String> response = new HashMap<>();
         try {
             familia.setEstado(1);

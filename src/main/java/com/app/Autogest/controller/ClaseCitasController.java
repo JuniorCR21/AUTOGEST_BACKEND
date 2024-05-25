@@ -93,4 +93,10 @@ public class ClaseCitasController {
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/BuscarCitasPorCliente/{idCliente}")
+    @PreAuthorize("hasAnyAuthority('BASICO','CLIENTE')")
+    public List<Clase_Citas> buscarPorCliente(@PathVariable Long idCliente) {
+        return citasService.findByClienteId(idCliente);
+    }
 }

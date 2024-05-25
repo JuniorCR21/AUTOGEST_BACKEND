@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,18 +32,20 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/Autogest")
-
+@PreAuthorize("denyAll()")
 public class ClaseEmpleadoController {
     @Autowired
     private IClaseEmpleadoService empleadoService;
     
     @GetMapping("/MostrarEmpelado")
-    private List<Clase_Empleado> index() {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public List<Clase_Empleado> index() {
         return empleadoService.findAll();
     }
     
     @PostMapping("/InsertarEmpleado")
-    private ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Empleado empleado, BindingResult bindingResult) {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Empleado empleado, BindingResult bindingResult) {
         Map<String, String> response = new HashMap();
 
         try {
@@ -70,13 +73,15 @@ public class ClaseEmpleadoController {
     }
     
     @GetMapping("/BuscarEmpleado/{id_Empleado}")
-    private Clase_Empleado buscar(@PathVariable Long id_Empleado) {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public Clase_Empleado buscar(@PathVariable Long id_Empleado) {
         return empleadoService.findById(id_Empleado);
     }
 
 
     @PutMapping("/ActualizarEmpleado/{id_Empleado}")
-    private ResponseEntity<Map<String, String>> update(@PathVariable Long id_Empleado, @RequestBody Clase_Empleado empleado) {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public ResponseEntity<Map<String, String>> update(@PathVariable Long id_Empleado, @RequestBody Clase_Empleado empleado) {
         Map<String, String> response = new HashMap<>();
         try {
             empleado.setId_Empleado(id_Empleado);
@@ -90,7 +95,8 @@ public class ClaseEmpleadoController {
     }
     
     @GetMapping("/BuscarEmpleadoPorNombre/{nombre}")
-    private ResponseEntity<?> buscarPorNombre(@PathVariable String nombre) {
+    @PreAuthorize("hasAnyAuthority('MASTER')")
+    public ResponseEntity<?> buscarPorNombre(@PathVariable String nombre) {
         List<Clase_Empleado> empleadoEncontradas = empleadoService.findByNombre(nombre);
         Map<String, Object> response = new HashMap<>();
         if (!empleadoEncontradas.isEmpty()) {

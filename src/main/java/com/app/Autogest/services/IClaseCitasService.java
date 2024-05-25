@@ -17,4 +17,5 @@ public interface IClaseCitasService {
     Clase_Citas insert(Clase_Citas citas);
     Clase_Citas update(Clase_Citas citas);
     Clase_Citas findById(Long id);
+    public List<Clase_Citas> findByClienteId(Long idCliente);
 }

@@ -16,3 +16,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface IClaseChoferDao extends JpaRepository<Clase_Chofer, Long>{
     List<Clase_Chofer> findByNombresContainingIgnoreCase(String nombres);
 }
+ 

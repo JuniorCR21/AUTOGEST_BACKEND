@@ -15,6 +15,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,19 +32,21 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/Autogest")
-
+@PreAuthorize("denyAll()")
 public class ClaseOrdenIngresoController {
 
     @Autowired
     private IClaseOrdenIngresoService ordenService;
 
     @GetMapping("/MostrarOrdenIngreso")
-    private List<Clase_Orden_Ingreso> index() {
+    @PreAuthorize("hasAnyAuthority('BASICO')")
+    public List<Clase_Orden_Ingreso> index() {
         return ordenService.findAll();
     }
 
     @PostMapping("/InsertarOrdenIngreso")
-    private ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Orden_Ingreso ordeningreso, BindingResult bindingResult) {
+    @PreAuthorize("hasAnyAuthority('BASICO')")
+    public ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Orden_Ingreso ordeningreso, BindingResult bindingResult) {
         Map<String, String> response = new HashMap();
 
         try {

@@ -22,12 +22,7 @@ public class ClaseMarcaServicesImpl implements IClaseMarcaService {
 
     @Autowired
     private IClaseMarcaDao marcaDao;
-
-//    @Override
-//    public List<Clase_Marca> findAll() {
-//        return (List<Clase_Marca>) marcaDao.findAll();
-//    }
-
+    
     @Override
     @Transactional
     public Clase_Marca insert(Clase_Marca marca) {

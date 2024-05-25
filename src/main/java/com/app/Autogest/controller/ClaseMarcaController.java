@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/Autogest")
-//@PreAuthorize("denyAll()")
+@PreAuthorize("denyAll()")
 public class ClaseMarcaController {
 
     @Autowired
@@ -44,7 +44,7 @@ public class ClaseMarcaController {
     private IClaseModeloService modeloService;
 
     @GetMapping("/MostrarMarca")
-//    @PreAuthorize("hasAnyAuthority('BASICO', 'CLIENTE')")
+    @PreAuthorize("hasAnyAuthority('BASICO', 'CLIENTE')")
     public ResponseEntity<?> index() {
         List<Clase_Marca> marcasActivas = marcaService.findAllByEstado(1);
         if (!marcasActivas.isEmpty()) {
@@ -57,13 +57,13 @@ public class ClaseMarcaController {
     }
 
     @GetMapping("/BuscarMarca/{id_Marca}")
-//    @PreAuthorize("hasAnyAuthority('AVANZADO')")
+    @PreAuthorize("hasAnyAuthority('AVANZADO')")
     public Clase_Marca buscar(@PathVariable Long id_Marca) {
         return marcaService.findById(id_Marca);
     }
 
     @PostMapping("/InsertarMarca")
-//    @PreAuthorize("hasAnyAuthority('AVANZADO')")
+    @PreAuthorize("hasAnyAuthority('AVANZADO')")
     public ResponseEntity<Map<String, String>> insert(@Valid @RequestBody Clase_Marca marca, BindingResult bindingResult) {
         Map<String, String> response = new HashMap();
 
@@ -92,7 +92,7 @@ public class ClaseMarcaController {
     }
 
     @PutMapping("/ActualizarMarca/{id_Marca}")
-//    @PreAuthorize("hasAnyAuthority('AVANZADO')")
+    @PreAuthorize("hasAnyAuthority('AVANZADO')")
     public ResponseEntity<Map<String, String>> update(@PathVariable Long id_Marca, @RequestBody Clase_Marca marca) {
         Map<String, String> response = new HashMap<>();
         try {
@@ -108,7 +108,7 @@ public class ClaseMarcaController {
     }
 
     @PutMapping("/EliminarMarca/{id_Marca}")
-//    @PreAuthorize("hasAnyAuthority('AVANZADO')")
+    @PreAuthorize("hasAnyAuthority('AVANZADO')")
     public ResponseEntity<Map<String, String>> eliminar(@PathVariable Long id_Marca) {
         Map<String, String> response = new HashMap<>();
         try {
@@ -135,7 +135,7 @@ public class ClaseMarcaController {
     }
 
     @GetMapping("/BuscarPorMarca/{marca}")
-//    @PreAuthorize("hasAnyAuthority('MASTER')")
+    @PreAuthorize("hasAnyAuthority('MASTER')")
     public ResponseEntity<?> buscarPorMarca(@PathVariable String marca) {
         List<Clase_Marca> marcasEncontradas = marcaService.findByMarca(marca);
         Map<String, Object> response = new HashMap<>();

@@ -23,10 +23,6 @@ public class ClaseModeloServicesImpl implements IClaseModeloService{
     @Autowired
     private IClaseModeloDao modeloDao;
     
-//    @Override
-//    public List<Clase_Modelo> findAll() {
-//       return (List<Clase_Modelo>) modeloDao.findAll();
-//    }
     
     @Override
     public List<Clase_Modelo> findAllByEstado(int estado) {
