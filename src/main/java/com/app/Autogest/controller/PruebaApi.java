@@ -27,7 +27,7 @@ public class PruebaApi {
     @GetMapping("/Hello")
     @PreAuthorize("permitAll()")
     public String index() {
-        return "Ya funciona esta mierda de Api en un server";
+        return "Ya funciona esta mierda de Api en un server tsts";
     }
 
 
