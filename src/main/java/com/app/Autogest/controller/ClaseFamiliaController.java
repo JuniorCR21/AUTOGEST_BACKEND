@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/Autogest")
+@PreAuthorize("denyAll()")
 public class ClaseFamiliaController {
 
     @Autowired
