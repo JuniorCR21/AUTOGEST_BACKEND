@@ -11,6 +11,7 @@
     <groupId>com.app</groupId>
     <artifactId>Autogest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>Autogest</name>
     <description>Sistema para gestion de servicios automotrices</description>
     <properties>

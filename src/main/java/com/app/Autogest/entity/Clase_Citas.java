@@ -33,7 +33,7 @@ public class Clase_Citas {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    @Column(name = "fora")
+    @Column(name = "hora")
     private LocalTime hora;
 
     @Column(name = "tipo_Consulta")
